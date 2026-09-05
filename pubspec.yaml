@@ -1,0 +1,23 @@
+name: notenest
+description: NoteNest — personal academic workspace for students.
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Optional, for the intended typefaces. After adding it, open
+  # lib/theme/nest_theme.dart and set the NestFont values.
+  # google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_lints: ^4.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
