@@ -7,8 +7,12 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  crypto: ^3.0.7
   flutter:
     sdk: flutter
+  path: ^1.9.1
+  sqflite: ^2.4.3
+  sqflite_common_ffi_web: ^1.1.2
 
   # Optional, for the intended typefaces. After adding it, open
   # lib/theme/nest_theme.dart and set the NestFont values.

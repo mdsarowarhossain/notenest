@@ -1,30 +1,38 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:notenest/main.dart';
+import 'package:notenest/theme/nest_theme.dart';
+import 'package:notenest/widgets/nest_stepper.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('stepper marks completed, current and upcoming steps',
+      (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: nestTheme(),
+        home: const Scaffold(
+          body: NestStepper(
+            steps: [
+              NestStep(title: 'One', icon: Icons.person_rounded),
+              NestStep(title: 'Two', icon: Icons.folder_rounded),
+              NestStep(title: 'Three', icon: Icons.alarm_rounded),
+            ],
+            currentIndex: 1,
+          ),
+        ),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Step one is done, so its icon is replaced by a tick.
+    expect(find.byIcon(Icons.check_rounded), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // The current and upcoming steps still show their own icons.
+    expect(find.byIcon(Icons.folder_rounded), findsOneWidget);
+    expect(find.byIcon(Icons.alarm_rounded), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Every step label is on screen.
+    expect(find.text('One'), findsOneWidget);
+    expect(find.text('Two'), findsOneWidget);
+    expect(find.text('Three'), findsOneWidget);
   });
 }
